@@ -13,7 +13,19 @@ const TodosList = () => {
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [todos]);
+  const handleRemove = id => {
+    axios
+      .get("http://localhost:3010/todos/delete/" + id)
+      .then(res => console.log(res))
+      .catch(err => {
+        console.log(err);
+      });
+    // const remainder = todos.filter(todo => {
+    //   if (todo._id !== id) return todo;
+    // });
+    // setTodos(remainder);
+  };
   const handleSubmit = event => {
     event.preventDefault();
     console.log("todos");
@@ -29,6 +41,7 @@ const TodosList = () => {
             <th>Responsible</th>
             <th>Priority</th>
             <th>Action</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -40,6 +53,9 @@ const TodosList = () => {
                 <td>{todo.priority}</td>
                 <td>
                   <Link to={"/edit/" + todo._id}>Edit</Link>
+                </td>
+                <td>
+                  <button onClick={() => handleRemove(todo._id)}>Delete</button>
                 </td>
               </tr>
             );

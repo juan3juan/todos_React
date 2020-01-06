@@ -78,6 +78,13 @@ todoRoutes.route("/update/:id").post(function(req, res) {
     });
 });
 
+todoRoutes.route("/delete/:id").get(function(req, res) {
+  console.log(req.params.id);
+  Todo.deleteOne({ _id: req.params.id })
+    .then(res.json("delete success!"))
+    .catch(res.json("delete err!"));
+});
+
 todoRoutes.route("/add").post(function(req, res) {
   let todo = new Todo(req.body);
   console.log(todo);
